@@ -100,7 +100,7 @@ def load_home(posts,user,in_html='homenew'):
             if r[2] == 2:
                 user_pr = 'btn btn-success'
         posts_html += post_template.format(
-                                            user = p[8],
+                                            user = p[8].title(),
                                             project = p[12],
                                             date = p[4],
                                             activity = ' '.join(out_list),
