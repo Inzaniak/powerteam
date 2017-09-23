@@ -56,7 +56,7 @@ def load_home(posts,user,in_html='homenew'):
         if p[2] == 0:
             status = """<div class="btn-group pull-right">
                         <a href="/changestatus?postid={p_id}&status=1" class="btn btn-default btn-sm">Complete</a>
-                        <a href="/changestatus?postid={p_id}&status=0" class="btn btn-success btn-sm">WIP</a>
+                        <a href="/changestatus?postid={p_id}&status=0" class="btn btn-primary btn-sm">WIP</a>
                         <a href="/changestatus?postid={p_id}&status=2" class="btn btn-default btn-sm">TODO</a>
                         </div>
                         <div class="btn-group pull-right">
@@ -64,7 +64,7 @@ def load_home(posts,user,in_html='homenew'):
                         </div>""".format(p_id=p[0])
         if p[2] == 1:
             status = """<div class="btn-group pull-right">
-                        <a href="/changestatus?postid={p_id}&status=1" class="btn btn-success btn-sm">Complete</a>
+                        <a href="/changestatus?postid={p_id}&status=1" class="btn btn-primary btn-sm">Complete</a>
                         <a href="/changestatus?postid={p_id}&status=0" class="btn btn-default btn-sm">WIP</a>
                         <a href="/changestatus?postid={p_id}&status=2" class="btn btn-default btn-sm">TODO</a>
                         </div>
@@ -75,7 +75,7 @@ def load_home(posts,user,in_html='homenew'):
             status = """<div class="btn-group pull-right">
                         <a href="/changestatus?postid={p_id}&status=1" class="btn btn-default btn-sm">Complete</a>
                         <a href="/changestatus?postid={p_id}&status=0" class="btn btn-default btn-sm">WIP</a>
-                        <a href="/changestatus?postid={p_id}&status=2" class="btn btn-success btn-sm">TODO</a>
+                        <a href="/changestatus?postid={p_id}&status=2" class="btn btn-primary btn-sm">TODO</a>
                         </div>
                         <div class="btn-group pull-right">
                             <i class="material-icons">flag</i></p>
