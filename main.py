@@ -266,7 +266,7 @@ class WebSite(object):
     def add_proj(self,projname):
         conn = sqlite3.connect('{}data/new.db'.format(prefix))
         crs = conn.cursor()
-        crs.execute('insert into Projects (Name,CreatedBy,CreatedDate) values (?,?,?)',(projname,u,(datetime.datetime.now()+ datetime.timedelta(hours=2)).strftime('%d/%m/%Y %T')))
+        crs.execute('insert into Projects (Name,CreatedBy,CreatedDate) values (?,?,?)',(projname,cherrypy.session['name'].lower(),(datetime.datetime.now()+ datetime.timedelta(hours=2)).strftime('%d/%m/%Y %T')))
         conn.commit()
         conn.close()
         return "<body onload='location.href = document.referrer; return false;'>"
