@@ -233,6 +233,8 @@ class WebSite(object):
             conn = sqlite3.connect('{}data/new.db'.format(prefix))
             crs = conn.cursor()
             u = crs.execute('select * from "Users" where Name = "{}"'.format(cherrypy.session['name'].lower())).fetchall()[0][0]
+            if project != '':
+                project = 'and pr.id = "{}"'.format(project)
             posts = crs.execute('''select * from posts p
                                     left join users u
                                     on u.id = p.User
@@ -240,7 +242,7 @@ class WebSite(object):
                                     on pr.id = p.Project
                                     left join Authorizations a
 									on a.Project = p.Project
-                                    where (u.Name = "{tf}" or p.Text like "%{tf}%" or pr.Name = "{tf}") and p.status in ({st}) and pr.id like "%{pn}%" and a.User = "{user}"
+                                    where (u.Name = "{tf}" or p.Text like "%{tf}%" or pr.Name = "{tf}") {pn} and p.status in ({st})  and a.User = "{user}"
                                     order by date DESC'''.format(tf=tfilter,st=status,pn=project,user=u)).fetchall()
             conn.close()
             return load_home(posts,cherrypy.session['name'])
