@@ -30,26 +30,26 @@ div.footerr {
     color: white;
     padding: 20px;
     text-align: right;
-    position: relative;
-    bottom: 0;
+      position: absolute;
+     bottom: 0;
     left: 0;
     right: 0;
+    margin-top:auto
 }
 html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  height: 100%;
 }
 body {
+  position: relative;
   margin: 0;
-}
-html{
-  position:relative;
   min-height: 100%;
+  display:flex
 }
-html,body{
-  margin:0;
-  padding:0;
+.maincontent {
+  padding-bottom: 20px;
+}
+.footer-box {
+
 }
 article,
 aside,
@@ -1610,6 +1610,7 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
+  margin-bottom:60px;
   padding-left: 15px;
   padding-right: 15px;
 }
