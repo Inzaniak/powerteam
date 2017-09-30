@@ -47,7 +47,7 @@
         <div class="col-sm-10" align=center>
             <div class="panel panel-default" align=center>
                 <br>
-                <form method="get" action="/add_proj">
+                <form method="post" action="/add_proj">
                     <div class="form-group">
                         <label for="sel1">Nuovo Progetto:</label>
                         <div class="input-group">
@@ -59,7 +59,7 @@
                     </div>
                 </form>
                 <hr>
-                <form method="get" action="/del_proj">
+                <form method="post" action="/del_proj">
                 <div class="form-group">
                     <label for="sel1">Elimina Progetti:</label>
                     <select multiple class="form-control" name="projname">
@@ -71,7 +71,7 @@
                 </div>
                 </form>
                 <hr>
-                <form method="get" action="/ren_proj">
+                <form method="post" action="/ren_proj">
                 <div class="form-group">
                     <label for="sel1">Rinomina Progetti:</label>
                     <input type="text" class="form-control" placeholder="Rename" name="newname" autocomplete="off">
