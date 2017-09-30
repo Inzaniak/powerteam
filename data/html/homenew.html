@@ -16,6 +16,8 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='/static/js/pikaday.js'></script>
+    <link rel="stylesheet" href="static/css/pikaday.css"></script>
     <style>
         .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {{
             z-index: 1000;
@@ -72,6 +74,7 @@ function topFunction() {{
     document.documentElement.scrollTop = 0; // For IE and Firefox
 }}
 }}
+rome(input, {{ time: false }});
     </script>
 </head>
 
@@ -101,6 +104,13 @@ function topFunction() {{
                             {options}
                     </select>
                     <br>
+                    <div class="input-group">
+                    <input class="form-control" align=left type="text" name="date" type="text" id="datepicker">
+                    <span class="input-group-btn">
+                            <button class="btn btn-primary btn-md" type="button" id="success-btn">📅</button>
+                    </span>
+                    </div>
+                    <br>
                     <!--Checkboxes-->
                     <div>
                         <label class="checkbox-inline" title="Completed">
@@ -114,6 +124,7 @@ function topFunction() {{
                         </label>
                     </div>
                 </form>
+
 
                     <hr>
 
@@ -141,6 +152,39 @@ function topFunction() {{
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="static/js/jquery.smoothState.min.js"></script>
     <script src="static/js/smooth/main.js"></script>
-
+    <script src="pikaday.js"></script>
+    <script>
+    var picker = new Pikaday({{
+        field: document.getElementById('datepicker'),
+        format: 'DD/MM/YYYY',
+        toString(date, format) {{
+            // you should do formatting based on the passed format,
+            // but we will just return 'D/M/YYYY' for simplicity
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            if (day < 10 & month< 10){{
+                return `0${{day}}/0${{month}}/${{year}}`;
+            }}
+            else if (day < 10 & month>= 10){{
+                return `0${{day}}/${{month}}/${{year}}`;
+            }}
+            else if (day >= 10 & month< 10){{
+                return `${{day}}/0${{month}}/${{year}}`;
+            }}
+            else{{
+                return `${{day}}/${{month}}/${{year}}`;
+            }}
+        }},
+        parse(dateString, format) {{
+            // dateString is the result of `toString` method
+            const parts = dateString.split('/');
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1] - 1, 10);
+            const year = parseInt(parts[1], 10);
+            return new Date(year, month, day);
+        }}
+    }});
+    </script>
 <div class="footerr">Made with Python</div>
 </body>

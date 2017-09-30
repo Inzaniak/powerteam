@@ -223,7 +223,7 @@ class WebSite(object):
         return '<meta http-equiv="refresh" content="0; url=/authorization">'
 
     @cherrypy.expose
-    def home(self,tfilter='',status=[0,1,2],project=''):
+    def home(self,tfilter='',status=[0,1,2],project='',date=''):
         try:
             if len(status)>1:
                 status = ','.join([str(s) for s in status])
@@ -242,8 +242,12 @@ class WebSite(object):
                                     on pr.id = p.Project
                                     left join Authorizations a
 									on a.Project = p.Project
-                                    where (u.Name = "{tf}" or p.Text like "%{tf}%" or pr.Name = "{tf}") {pn} and p.status in ({st})  and a.User = "{user}"
-                                    order by date DESC'''.format(tf=tfilter,st=status,pn=project,user=u)).fetchall()
+                                    where (u.Name = "{tf}" or p.Text like "%{tf}%" or pr.Name = "{tf}") 
+                                    {pn} 
+                                    and p.status in ({st})  
+                                    and a.User = "{user}"
+                                    and p.Date like "%{date}%"
+                                    order by date DESC'''.format(tf=tfilter,st=status,pn=project,user=u,date=date)).fetchall()
             conn.close()
             return load_home(posts,cherrypy.session['name'])
         except Exception as E:
