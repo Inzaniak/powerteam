@@ -1,0 +1,13 @@
+<hr>
+<form method="get" action="/remove_post">
+    <input type="hidden" name="multiple" value="1"></input>
+    <div class="form-group">
+        <label for="sel1">Elimina Post:</label>
+        <select multiple class="form-control" name="post_id">
+                    {options_u}
+            </select>
+        <button type="submit" class="btn btn-danger btn-block">
+                    <i class="material-icons">done</i> Delete
+            </button>
+    </div>
+</form>

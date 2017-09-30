@@ -184,16 +184,17 @@ class WebSite(object):
             crs = conn.cursor()
             is_admin = crs.execute('select level from "Users" where name = ?',(cherrypy.session['name'].lower(),)).fetchall()[0][0]
             print(is_admin)
-            # sql_opt = crs.execute('select * from projects').fetchall()
-            # p_options = '\n'.join(['<option value="{}">{}</option>'.format(o[0],o[1]) for o in sql_opt])
-            # sql_opt = crs.execute('select * from users').fetchall()
-            # u_options = '\n'.join(['<option value="{}">{}</option>'.format(o[0],o[1]) for o in sql_opt])
             if is_admin == 0:
                 return load_html('user').format(admin='')
             if is_admin == 1:
                 users = crs.execute('select name,id from "Users"').fetchall()
                 u_options = '\n'.join(['<option value="{}">{}</option>'.format(o[1],o[0]) for o in users])
-                return load_html('user').format(admin=load_html('user_admin','templates').format(options_u=u_options))
+                posts = crs.execute('select text,id from "Posts"').fetchall()
+                p_options = '\n'.join(['<option value="{}">{}</option>'.format(o[1],o[0]) for o in posts])
+                admin_out = load_html('user_admin','templates').format(options_u=u_options)
+                admin_out += '\n'
+                admin_out += load_html('post_admin','templates').format(options_u=p_options)
+                return load_html('user').format(admin=admin_out)
         except:
             #print(E)
             print(traceback.format_exc())
@@ -316,11 +317,14 @@ class WebSite(object):
         return "<body onload='location.href = document.referrer; return false;'>"
 
     @cherrypy.expose
-    def remove_post(self,post_id):
+    def remove_post(self,post_id,multiple=''):
         conn = sqlite3.connect('{}data/new.db'.format(prefix))
         crs = conn.cursor()
         print(post_id)
-        crs.execute('delete from posts where ID = ?',(post_id,))
+        if multiple == '':
+            crs.execute('delete from posts where ID = ?',(post_id,))
+        else:
+            crs.execute('delete from posts where ID in ({})'.format(','.join(['"'+str(r)+'"' for r in post_id])))
         conn.commit()
         conn.close()
         return "<body onload='location.href = document.referrer; return false;'>"
