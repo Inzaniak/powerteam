@@ -1467,6 +1467,10 @@ ol ol {
   padding-left: 5px;
   padding-right: 5px;
 }
+li.listel {
+  border-bottom: 2px dotted #485563;
+  display: block;
+}
 dl {
   margin-top: 0;
   margin-bottom: 21px;
@@ -3144,6 +3148,11 @@ fieldset[disabled] .btn-default.focus {
 .btn-primary {
   color: #ffffff;
   background-color: #bbcd36;
+  border-color: transparent;
+}
+.btn-blank {
+  color: #ffffff;
+  background-color: transparent;
   border-color: transparent;
 }
 .btn-primary:focus,
@@ -6947,4 +6956,8 @@ label,
 }
 .popover-title {
   border: none;
+}
+.comment {
+  padding: 10;
+  background-color: yellow;
 }

@@ -99,6 +99,21 @@ def load_home(posts,user,in_html='homenew'):
                 user_dng = 'btn btn-success'
             if r[2] == 2:
                 user_pr = 'btn btn-success'
+        # Get Comments
+        comments = crs.execute('select * from Comments where PostID = ?',(p[0],)).fetchall()
+        comments_list = []
+        for c in comments:
+            print(c[4])
+            emoji = crs.execute('select * from Comments_Emoji where CommentType = ?',(c[4],)).fetchall()[0][1]
+            c_html = """
+            <li class="listel">
+            <form action="/set_complete">
+            <input type="hidden" name="comment_id" value="{comment_id}"></input>
+                <button class="btn btn-blank btn-md" type="submit" id="success-btn">{emoji}</button>
+                {comment}
+            </form>
+            </li>""".format(comment_id = c[0],emoji=emoji,comment = c[3])
+            comments_list.append(c_html)
         posts_html += post_template.format(
                                             user = p[8].title(),
                                             project = p[12],
@@ -114,6 +129,7 @@ def load_home(posts,user,in_html='homenew'):
                                             ,react1 = user_up
                                             ,react2 = user_dng
                                             ,react3 = user_pr
+                                            ,comments = '\n'.join(comments_list)
                                            )
         posts_html += '\n<br>\n'
     # Create Post
@@ -349,6 +365,15 @@ class WebSite(object):
         conn.commit()
         conn.close()
         return "<body onload='location.href = document.referrer; return false;'>"
+    
+    @cherrypy.expose
+    def add_comment(self,post_id,text,ctype):
+        conn = sqlite3.connect('{}data/new.db'.format(prefix))
+        crs = conn.cursor()
+        crs.execute('insert into Comments (PostID,UserID,Comment,Type) Values(?,?,?,?)',(post_id,cherrypy.session['name'],text,ctype))
+        conn.commit()
+        conn.close()
+        return "<body onload='location.href = document.referrer; return false;'>"
 
     @cherrypy.expose
     def chg_psw(self,oldpsw,newpsw):
@@ -356,6 +381,20 @@ class WebSite(object):
         crs = conn.cursor()
         u = crs.execute('select * from "Users" where Name = "{}"'.format(cherrypy.session['name'].lower())).fetchall()[0][0]
         crs.execute('update Users set Password = ? where Password = ? and ID = ?',(newpsw,oldpsw,u))
+        conn.commit()
+        conn.close()
+        return "<body onload='location.href = document.referrer; return false;'>"
+
+    
+    @cherrypy.expose
+    def set_complete(self,comment_id):
+        conn = sqlite3.connect('{}data/new.db'.format(prefix))
+        crs = conn.cursor()
+        check = crs.execute('select * from Comments where CommentID = ?',(comment_id,)).fetchall()[0][4]
+        if check != 0:
+            crs.execute('update Comments set Type = 0 where CommentID = ?',(comment_id,))
+        else:
+            crs.execute('delete from Comments where CommentID = ?',(comment_id,))
         conn.commit()
         conn.close()
         return "<body onload='location.href = document.referrer; return false;'>"
