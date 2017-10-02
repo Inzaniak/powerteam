@@ -74,7 +74,6 @@
             document.documentElement.scrollTop = 0; // For IE and Firefox
         }}
         }}
-        rome(input, {{ time: false }});
 
         function openToday() {{
             window.location = "/home?tfilter=&project=&date={today}";
@@ -155,9 +154,6 @@
 
 
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src="static/js/jquery.smoothState.min.js"></script>
-    <script src="static/js/smooth/main.js"></script>
-    <script src="pikaday.js"></script>
     <script>
     var picker = new Pikaday({{
         field: document.getElementById('datepicker'),
