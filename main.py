@@ -140,7 +140,10 @@ def load_home(posts,user,in_html='homenew'):
                        ,options=options
                        )
     conn.close()
-    return html.format(posts = posts_html, send_post = create_post,options=options)
+    return html.format(posts = posts_html
+                        ,send_post = create_post
+                        ,options=options 
+                        ,today = datetime.datetime.strftime(datetime.datetime.now(),'%d/%m/%Y'))
 
 class WebSite(object):
 

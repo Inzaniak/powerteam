@@ -37,44 +37,48 @@
         input[type=checkbox].glyphicon{{
             visibility: hidden;}}
     </style>
-            <script type="text/javascript">
-                $(window).scroll(function() {{
-                    sessionStorage.scrollTop = $(this).scrollTop();
-                  }});
+    <script type="text/javascript">
+        $(window).scroll(function() {{
+            sessionStorage.scrollTop = $(this).scrollTop();
+            }});
 
-                  $(document).ready(function() {{
-                    if (sessionStorage.scrollTop != "undefined") {{
-                      $(window).scrollTop(sessionStorage.scrollTop);
-                    }}
-                  }});
-                function openNewBackgroundTab(){{
-                    var a = document.createElement("a");
-                    a.href = "/changestatus";
-                    var evt = document.createEvent("MouseEvents");
-                    //the tenth parameter of initMouseEvent sets ctrl key
-                    evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
-                                                true, false, false, false, 0, null);
-                    a.dispatchEvent(evt);
-                }}
-if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )) {{
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {{scrollFunction()}};
+            $(document).ready(function() {{
+            if (sessionStorage.scrollTop != "undefined") {{
+                $(window).scrollTop(sessionStorage.scrollTop);
+            }}
+            }});
+        function openNewBackgroundTab(){{
+            var a = document.createElement("a");
+            a.href = "/changestatus";
+            var evt = document.createEvent("MouseEvents");
+            //the tenth parameter of initMouseEvent sets ctrl key
+            evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0,
+                                        true, false, false, false, 0, null);
+            a.dispatchEvent(evt);
+        }}
+        if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )) {{
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {{scrollFunction()}};
 
-function scrollFunction() {{
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {{
-        document.getElementById("myBtn").style.display = "block";
-    }} else {{
-        document.getElementById("myBtn").style.display = "none";
-    }}
-}}
+        function scrollFunction() {{
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {{
+                document.getElementById("myBtn").style.display = "block";
+            }} else {{
+                document.getElementById("myBtn").style.display = "none";
+            }}
+        }}
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {{
-    document.body.scrollTop = 0; // For Chrome, Safari and Opera
-    document.documentElement.scrollTop = 0; // For IE and Firefox
-}}
-}}
-rome(input, {{ time: false }});
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {{
+            document.body.scrollTop = 0; // For Chrome, Safari and Opera
+            document.documentElement.scrollTop = 0; // For IE and Firefox
+        }}
+        }}
+        rome(input, {{ time: false }});
+
+        function openToday() {{
+            window.location = "/home?tfilter=&project=&date={today}";
+        }}
     </script>
 </head>
 
@@ -106,10 +110,12 @@ rome(input, {{ time: false }});
                     <br>
                     <div class="input-group">
                     <input class="form-control" align=left type="text" name="date" type="text" id="datepicker">
+                    <!--<input type="hidden" name="date" value="{today}"></input>-->
                     <span class="input-group-btn">
-                            <button class="btn btn-primary btn-md" type="button" id="success-btn">📅</button>
+                        <button class="btn btn-primary btn-md" type="button" id="success-btn" onclick="openToday()">📅</button>
                     </span>
                     </div>
+                    </form>
                     <br>
                     <!--Checkboxes-->
                     <div>
@@ -124,7 +130,6 @@ rome(input, {{ time: false }});
                         </label>
                     </div>
                 </form>
-
 
                     <hr>
 
