@@ -267,7 +267,7 @@ class WebSite(object):
                                     and p.status in ({st})  
                                     and a.User = "{user}"
                                     and p.Date like "%{date}%"
-                                    order by date DESC'''.format(tf=tfilter,st=status,pn=project,user=u,date=date)).fetchall()
+                                    order by datetime(substr("date",7,4) || '-' || substr("date",4,2) || '-' || substr("date",1,2) || ' ' || substr("date",11,9)) DESC'''.format(tf=tfilter,st=status,pn=project,user=u,date=date)).fetchall()
             conn.close()
             return load_home(posts,cherrypy.session['name'])
         except Exception as E:
