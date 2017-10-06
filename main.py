@@ -429,7 +429,8 @@ class WebSite(object):
 conf = {
     '/': {
         'tools.sessions.on': True,
-        'tools.staticdir.root': os.path.abspath(os.getcwd())
+        'tools.staticdir.root': os.path.abspath(os.getcwd()),
+        'tools.sessions.timeout': 1440
     },
     '/static': {
         'tools.staticdir.on': True,
