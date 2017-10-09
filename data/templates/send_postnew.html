@@ -1,37 +1,37 @@
 
 
 <div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#collapse1">Aggiungi Attività</a>
-        </h4>
-      </div>
-        <div  id="collapse1" class="panel-collapse collapse">
-        <form method="post" action="send_post" >
-                <div class="form-group" align="Left">
-                    <input type="hidden" name="user_id" value="{user_id}"></input>
-                    <input type="hidden" name="date" value="{date}"></input>
-                    <label for="comment">Project:</label>
-                    <select name="project" class="form-control">
-                                {options}
-                    </select>
-                    <br>
-                    <label for="comment">Status:</label>
-                    <select name="status" class="form-control">
-                            <option value="0">WIP</option>
-                            <option value="1">Complete</option>
-                            <option value="2">TODO</option>
-                    </select>
-                    <br>
-                    <label for="comment">Activity:</label>
-                    <textarea class="form-control" rows="2" id="comment" name="text" autocomplete="off"></textarea>
-                    <button type="submit" class="btn btn-primary btn-block">
-                                <i class="material-icons">done</i> Post
-                              </button>
-                    <hr>
-                </div>
-            </form>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Aggiungi Attività</a>
+      </h4>
+    </div>
+      <div  id="collapse1" class="panel-collapse collapse">
+      <form method="post" action="send_post">
+              <div class="form-group" align="Left">
+                  <input type="hidden" name="user_id" value="{user_id}"></input>
+                  <input type="hidden" name="date" value="{date}"></input>
+                  <label for="comment">Project:</label>
+                  <select name="project" class="js-example-basic-single form-control" style="width: 100%">
+                              {options}
+                  </select>
+                  <br>
+                  <label for="comment">Status:</label>
+                  <select name="status" class="form-control">
+                          <option value="0">WIP</option>
+                          <option value="1">Complete</option>
+                          <option value="2">TODO</option>
+                  </select>
+                  <br>
+                  <label for="comment">Activity:</label>
+                  <textarea class="form-control" rows="2" id="comment" name="text" autocomplete="off"></textarea>
+                  <button type="submit" class="btn btn-primary btn-block">
+                              <i class="material-icons">done</i> Post
+                            </button>
+                  <hr>
+              </div>
+          </form>
     </div>
   </div>
+</div>
