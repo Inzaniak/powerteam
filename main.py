@@ -5,10 +5,10 @@ import sqlite3
 import os
 import datetime
 import sys
-sys.stdout = sys.stderr
-
 import atexit
 import cherrypy
+
+sys.stdout = sys.stderr
 
 vers = 'OFF'
 
