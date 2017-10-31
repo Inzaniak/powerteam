@@ -82,7 +82,8 @@ def load_home(posts,user,in_html='homenew'):
                         </div>""".format(p_id=p[0])
         add_info = """
         <div class="panel-body">Update Date: {}</div>
-        """.format(p[6])
+        <div class="panel-body">Referente: {}</div>
+        """.format(p[6],p[7])
         # Get reactions
         reactions = crs.execute('select * from reactions where PostID = ?',(p[0],)).fetchall()
         react_up = len([r for r in reactions if r[2]==0])
@@ -115,8 +116,8 @@ def load_home(posts,user,in_html='homenew'):
             </li>""".format(comment_id = c[0],emoji=emoji,comment = c[3])
             comments_list.append(c_html)
         posts_html += post_template.format(
-                                            user = p[8].title(),
-                                            project = p[12],
+                                            user = p[9].title(),
+                                            project = p[13],
                                             date = p[4],
                                             activity = ' '.join(out_list),
                                             post_id = p[0],
@@ -417,11 +418,11 @@ class WebSite(object):
             return load_html('loginFail')
 
     @cherrypy.expose
-    def send_post(self,user_id,date,project,text,status):
+    def send_post(self,user_id,date,project,text,status,referente):
         conn = sqlite3.connect('{}data/new.db'.format(prefix))
         crs = conn.cursor()
-        crs.execute('insert into "Posts" (User,Date,Project,Text,Status) values (?,?,?,?,?)',
-                    (user_id,date,project,text,status))
+        crs.execute('insert into "Posts" (User,Date,Project,Text,Status,Referente) values (?,?,?,?,?,?)',
+                    (user_id,date,project,text,status,referente))
         conn.commit()
         return """<body onload='location.href = document.referrer; return false;'>"""
 
